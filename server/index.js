@@ -5,9 +5,11 @@ const port = 8080;
 const path = require('path');
 const { body, validationResult } = require('express-validator');
 
+server.use(express.static(__dirname + '/../public'))
+
 // Login form
 server.get('/', function(request, response) {
-	response.sendFile(path.join(__dirname + '../client/index.html'));
+	response.sendFile(path.join(__dirname + '/../client/index.html'));
 });
 
 // Parse URL-encoded bodies (as sent by HTML forms)
