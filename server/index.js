@@ -6,7 +6,7 @@ const path = require('path');
 const { body, validationResult } = require('express-validator');
 
 // Login form
-app.get('/', function(request, response) {
+server.get('/', function(request, response) {
 	response.sendFile(path.join(__dirname + '../client/index.html'));
 });
 
