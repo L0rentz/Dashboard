@@ -1,31 +1,55 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <title></title>
-    <script src="jquery/dist/jquery.js"></script>
-    <script src="gridstack/dist/gridstack-h5.js"></script>
-    <link href="gridstack/dist/gridstack.min.css" rel="stylesheet"/>
-  </head>
 
-  <body>
-    <style type="text/css">
-      .grid-stack { background: #FAFAD2; }
-      .grid-stack-item-content { background-color: #18BC9C; }
-    </style>
+<head>
+  <title></title>
+  <script src="js/dashboard.js"></script>
+  <link rel="stylesheet" href="stylesheets/dashboard.css">
+  <link rel="stylesheet" href="stylesheets/sidenav.css">
+  <script src="jquery/dist/jquery.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="gridstack/dist/gridstack-h5.js"></script>
+  <link href="gridstack/dist/gridstack.min.css" rel="stylesheet" />
+</head>
 
-    <div class="myGrid">
-        <div class="grid-stack"></div>
+<body>
 
-        <script type="text/javascript">
-          var items = [
-            { content: 'my first widget' }, // will default to location (0,0) and 1x1
-            { w: 2, content: 'another longer widget!' } // will be placed next at (1,0) and 2x1
-          ];
-          var grid = GridStack.init();
-          grid.load(items);
-        </script>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">&times;</a>
+    <div class="grid-stack-item ui-draggable" style="position: relative;" gs-w="3" gs-h="3">
+      <div class="grid-stack-item-content" draggable="true">
+        <div class="card-header">Header</div>
+        <div class="card-body">
+          <h5 class="card-title">Light card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+        </div>
+      </div>
     </div>
-  </body>
+  </div>
+
+  <div id="main">
+    <div class="header">
+      <div class="header-body">
+        <div class="row align-items-end row">
+          <div class="col">
+            <h6 class="header-pretitle">Overview</h6>
+            <h1 class="header-title">Dashboard</h1>
+          </div>
+          <div class="col-auto"><button type="button" class="lift btn btn-primary" onclick="toggleNav()">Edit Dashboard</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-grid">
+      <div class="grid-stack">
+
+      </div>
+    </div>
+  </div>
+
+</body>
 
 </html>

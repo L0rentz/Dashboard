@@ -1,0 +1,40 @@
+.grid-stack {
+
+}
+
+.my-grid.edit {
+    border-style: dashed;
+    border-color: #b5b5b5;
+}
+
+.presenter-widget {
+    display: inline-block;
+}
+
+.grid-stack-item-content {
+    background-color: #18BC9C;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.align-items-end {
+    align-items: flex-end!important;
+}
+
+.header-title {
+    margin-bottom: 0;
+}
+
+.header-pretitle {
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #95aac9;
+}
+
+.header-body {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e3ebf6;
+}
