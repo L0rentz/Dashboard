@@ -2,7 +2,9 @@ var grid;
 window.onload = function () {
     var options = {
         acceptWidgets: true,
-        minRow: 1
+        minRow: 1,
+        disableDrag: true,
+        disableResize: true,
     };
 
     var items = [
