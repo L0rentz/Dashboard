@@ -10,7 +10,7 @@ window.onload = function () {
         { w: 2, content: 'another longer widget!' } // will be placed next at (1,0) and 2x1
     ];
 
-    var grid = GridStack.init(options);
+    grid = GridStack.init(options);
     grid.load(items);
     GridStack.setupDragIn('#mySidenav .grid-stack-item', { revert: 'invalid', scroll: false, appendTo: 'body', helper: myClone });
 
