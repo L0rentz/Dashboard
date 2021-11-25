@@ -14,14 +14,14 @@ jQuery(function() {
         $.ajax({
             type: "POST",
             contentType: 'application/json',
-            url: "/login",
+            url: "/user/login",
             dataType: 'json',
             data: getFormData($('#login-form')),
             success: function(json) {
                 window.location = json.route;
             },
             error: function(json) {
-                alert(json.errors);
+                alert(json.responseJSON.message);
             }
         });
     }
