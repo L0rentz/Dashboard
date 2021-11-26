@@ -11,12 +11,40 @@
     display: inline-block;
 }
 
+.widget-content > * {
+    margin: 3px;
+}
+
 .grid-stack-item-content {
-    background-color: #18BC9C;
+    background-color: #ffff;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+.grid-stack-item-content:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.widget-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
 }
 
 .header {
     margin-bottom: 2rem;
+}
+
+.card-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.btn-close.disabled {
+    display: none;
 }
 
 .align-items-end {
