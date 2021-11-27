@@ -42,7 +42,6 @@ window.onload = function () {
     function myClone(event) {
         return event.target.cloneNode(true);
     }
-
 }
 
 function appendLoading(id) {
@@ -63,10 +62,10 @@ function appendDriversList(id, json) {
     let driverTable = json.MRData.DriverTable;
     let drivers = driverTable.Drivers;
     title.empty();
-    title.append("F1 Drivers from " + driverTable.season);
+    title.append("All the F1 Drivers from " + driverTable.season);
     container.removeClass('center-box');
     container.empty();
-    let $table = $('<table class="table table-striped"></table>');
+    let $table = $('<table class="table table-hover"></table>');
     $table.append(`<thead>
                     <tr>
                       <th scope="col">#</th>
@@ -79,7 +78,7 @@ function appendDriversList(id, json) {
                 </thead>`);
     let $tbody = $('<tbody></tbody>');
     for (let i = 0; i < drivers.length; i++) {
-        let $row = $('<tr></tr>');
+        let $row = $(`<tr class="pointer" data-href="`+ drivers[i].url +`"></tr>`);
         let nb = drivers[i].permanentNumber == undefined ? "N/A" : drivers[i].permanentNumber;
         $row.append(`<th scope="row">`+ (i + 1) +`</th>`);
         $row.append(`<td>`+ drivers[i].givenName +`</td>`);
@@ -91,6 +90,41 @@ function appendDriversList(id, json) {
     }
     $table.append($tbody);
     container.append($table);
+    $('tr[data-href]').on("click", function() {
+        document.location = $(this).data('href');
+    });
+}
+
+function appendConstructorList(id, json) {
+    let container = $("#" + id).find('.widget-content');
+    let title = $("#" + id).find('.title');
+    let contructorTable = json.MRData.ConstructorTable;
+    let constructors = contructorTable.Constructors;
+    title.empty();
+    title.append("All constructors from " + contructorTable.season);
+    container.removeClass('center-box');
+    container.empty();
+    let $table = $('<table class="table table-hover"></table>');
+    $table.append(`<thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Nationality</th>
+                    </tr>
+                </thead>`);
+    let $tbody = $('<tbody></tbody>');
+    for (let i = 0; i < constructors.length; i++) {
+        let $row = $(`<tr class="pointer" data-href="`+ constructors[i].url +`"></tr>`);
+        $row.append(`<th scope="row">`+ (i + 1) +`</th>`);
+        $row.append(`<td>`+ constructors[i].name +`</td>`);
+        $row.append(`<td>`+ constructors[i].nationality +`</td>`);
+        $tbody.append($row);
+    }
+    $table.append($tbody);
+    container.append($table);
+    $('tr[data-href]').on("click", function() {
+        document.location = $(this).data('href');
+    });
 }
 
 function getNewWidget() {
