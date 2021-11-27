@@ -1,30 +1,28 @@
 function getFormulaWidgetContent(id) {
     return `
-    `+ generateDropDownYears() +`
+    `+ generateDropDownYears() + `
     </hr>
-    `+ generateDropDownCategory() +`
-    <button type="button" class="btn btn-outline-dark btn-sm" style="width: 100%" onClick="validateButton('`+ id +`')">Validate</button>`;
+    `+ generateDropDownCategory() + `
+    <button type="button" class="btn btn-outline-dark btn-sm" style="width: 100%" onClick="validateButtonFormula('`+ id + `')">Validate</button>`;
 }
 
-function validateButton(id)
+function validateButtonFormula(id)
 {
     let year = $("#" + id).find('#year');
     let category = $("#" + id).find('#category');
-    // year.val();
     console.log("year: " + year.val() + "\ncategory: " + category.val());
+    getFormulaData(id, year.val(), category.val());
 }
 
-function generateDropDownCategory()
-{
+function generateDropDownCategory() {
     return `<select id="category" name="category" class="custom-select">
-    <option value="Drivers">Drivers championship</option>
-    <option value="Constructors">Constructors championship</option>
+    <option value="drivers">All Drivers</option>
+    <option value="constructors">All Constructors</option>
     </select>`;
 }
 
 
-function generateDropDownYears()
-{
+function generateDropDownYears() {
     // let dropDown = document.createElement('select')
     return `<select id="year" name="year" class="custom-select">
     <option value="1950">1950</option>
