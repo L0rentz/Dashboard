@@ -66,3 +66,16 @@
 .pointer {
     cursor: pointer;
   }
+
+.temperature {
+    float: right;
+    color: #666;
+    font-weight: 300;
+    font-size: 6.59375em;
+    line-height: .2em;
+    -webkit-animation: up 2s cubic-bezier(.39, 0, .38, 1) .2s;
+}
+
+.mood {
+    color: #777;
+}
