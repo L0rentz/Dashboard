@@ -66,7 +66,7 @@ function getNewWidget() {
                   <div class="card-body widget-content center-box">
                     <h5 class="card-title">Widget description</h5>
                     <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Customize your widget
                     </button>

@@ -13,9 +13,9 @@ function getFormulaData(id, year, category)
             //SPINNER
         },
         success: function (json) {
-            if (category == "drivers")
+            if (category === "drivers")
                 appendDriversList(id, json)
-            if (category == "constructors")
+            if (category === "constructors")
                 appendConstructorList(id, json);
             console.log(json);
         },
