@@ -1,4 +1,5 @@
-const crypto = require('crypto')
+const crypto = require('crypto');
+const { user } = require('../config/db.config');
 
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define('user', {
@@ -34,13 +35,23 @@ module.exports = (sequelize, Sequelize) => {
             get() {
                 return () => this.getDataValue('oauth')
             }
+        },
+        jwt: {
+            type: Sequelize.STRING,
+            notEmpty: false,
+            notNull: false,
+            unique: true,
+            get() {
+                return () => this.getDataValue('jwt')
+            }
         }
     });
 
     User.generateSalt = function () {
         return crypto.randomBytes(16).toString('base64')
     }
-    User.encryptPassword = function (plainText, salt) {
+
+    User.encryptPassword = function(plainText, salt) {
         return crypto
             .createHash('RSA-SHA256')
             .update(plainText)
@@ -58,7 +69,7 @@ module.exports = (sequelize, Sequelize) => {
     User.beforeCreate(setSaltAndPassword)
     User.beforeUpdate(setSaltAndPassword)
 
-    User.prototype.verifyPassword = function (enteredPassword) {
+    User.prototype.verifyPassword = function(enteredPassword) {
         return User.encryptPassword(enteredPassword, this.salt()) === this.password()
     }
 
