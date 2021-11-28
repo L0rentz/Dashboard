@@ -60,7 +60,10 @@ function appendLeagueStandings(id, json)
         let ties = standings[i].stats[2].displayValue;
         let games = standings[i].stats[3].displayValue;
         $row.append(`<th scope="row">` + (i + 1) + `</th>`);
-        $row.append(`<td><img src="` + standings[i].team.logos[0].href + `"></img></td>`);
+        if (standings[i].team.logos)
+            $row.append(`<td><img src="` + standings[i].team.logos[0].href + `"></img></td>`);
+        else
+        $row.append(`<td>N/A</td>`);
         $row.append(`<td>`+ standings[i].team.displayName +`</td>`);
         $row.append(`<td>`+ standings[i].stats[6].displayValue +`</td>`);
         $row.append(`<td>`+ games +`</td>`);
