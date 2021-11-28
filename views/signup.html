@@ -5,34 +5,33 @@
     <title></title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="javascripts/api/login.js"></script>
+    <script src="javascripts/api/signup.js"></script>
     <script src="js-cookie/dist/js.cookie.js"></script>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="stylesheets/index.css" type="text/css"/>
   </head>
 
   <body>
-    <style type="text/css">
-      .grid-stack {
-        background: #FAFAD2;
-      }
-      .grid-stack-item-content {
-        background-color: #18BC9C;
-      }
-    </style>
-
     <div class="wrapper fadeInDown">
       <div id="formContent">
+        <h1 class="fadeIn first title">Sign up</h1>
         <!-- Icon -->
         <div class="fadeIn first">
-          <img src="images/login.png" id="icon" alt="User Icon"/>
+          <img src="images/signup.png" id="icon" alt="User Icon"/>
         </div>
 
+        <span id="error"></span>
+
         <!-- Login Form -->
-        <form id="login-form" onsubmit="return false">
-          <input type="text" required="true" id="login" class="fadeIn second" name="email" placeholder="email">
-          <input type="text password" id="password" required="true" class="fadeIn third" name="password" placeholder="password">
-          <input type="submit" class="fadeIn fourth" value="Log In">
+        <form id="signup-form" onsubmit="return false">
+          <input type="text" required="true" id="login" class="fadeIn second" name="email" placeholder="Email">
+          <input type="password" id="password" required="true" class="fadeIn third" name="password" placeholder="Password">
+          <i class="fas fa-eye-slash fadeIn third" id="togglePassword"></i>
+          <input type="password" id="repeatpassword" required="true" class="fadeIn third" name="repeatpassword" placeholder="Repeat password">
+          <i class="fas fa-eye-slash fadeIn third" id="toggleRepeatPassword"></i>
+          <input type="button" class="fadeIn fourth" id="back" value="Back">
+          <input type="submit" class="fadeIn fourth" value="submit">
         </form>
 
         <!-- Remind Password -->

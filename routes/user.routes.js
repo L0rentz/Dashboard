@@ -21,6 +21,10 @@ module.exports = app => {
         res.sendFile(path.join(__dirname + '/../views/dashboard.html'));
     });
 
+    app.get('/signup', (req, res) => {
+        res.sendFile(path.join(__dirname + '/../views/signup.html'));
+    });
+
     //router.post("/changepassword", auth, users.changepassword);
 
     //router.post("/verifypassword", auth, users.verifypassword);

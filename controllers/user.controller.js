@@ -3,6 +3,7 @@ const User = db.users;
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt.config');
 var { user } = require("../config/db.config");
+var validator = require("email-validator");
 
 async function findUserByEmail(email) {
     try {
@@ -45,6 +46,13 @@ exports.signup = (req, res) => {
         return;
     }
 
+    if (!validator.validate(req.body.email)) {
+        res.status(400).send({
+            message: 'Please provide a valid email.'
+        });
+        return;
+    }
+
     // Create the User Record
     const newUser = {
         email: req.body.email,
@@ -54,13 +62,16 @@ exports.signup = (req, res) => {
     User.create(newUser)
         .then(data => {
             res.send({
-                message: "Signup successful!"
+                message: "Signup successful!",
+                route: "/login"
             });
         })
         .catch(err => {
+            let message = err.message || "Some error occurred while signing you up.";
+            if (message == "Validation error")
+                message = "Email already exist."
             res.status(500).send({
-                message:
-                    err.message || "Some error occurred while signing you up.",
+                message: message,
                 errObj: err
             });
         });
@@ -75,6 +86,14 @@ exports.login = async (req, res) => {
         });
         return;
     }
+
+    if (!validator.validate(req.body.email)) {
+        res.status(400).send({
+            message: 'Please provide a valid email.'
+        });
+        return;
+    }
+
     user = null;
     if (req.body.email) {
         user = await findUserByEmail(req.body.email);

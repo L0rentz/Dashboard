@@ -1,5 +1,6 @@
 jQuery(function () {
     $('#togglePassword').attr('style', 'margin-left: -' + $('#togglePassword').width() * 2 + 'px; margin-top: ' + $('#password').height() + 'px');
+    $('#toggleRepeatPassword').attr('style', 'margin-left: -' + $('#togglePassword').width() * 2 + 'px; margin-top: ' + $('#password').height() + 'px');
 
     function getFormData($form) {
         var unindexed_array = $form.serializeArray();
@@ -12,16 +13,22 @@ jQuery(function () {
         return JSON.stringify(indexed_array);
     }
 
-    var loginCallback = function () {
+    var signUpCallback = function () {
+        var password = $('#password').val();
+        var repeatpassword = $('#repeatpassword').val();
+        if (password != repeatpassword) {
+            $('#error').text("Passwords must match.");
+            return;
+        }
+
         $.ajax({
             type: "POST",
             contentType: 'application/json',
-            url: "/user/login",
+            url: "/user/signup",
             dataType: 'json',
-            data: getFormData($('#login-form')),
+            data: getFormData($('#signup-form')),
             success: function (json) {
                 $('#error').text('');
-                Cookies.set('Authorization', 'Bearer ' + json.token)
                 window.location = json.route
             },
             error: function (json) {
@@ -43,9 +50,23 @@ jQuery(function () {
         }
     }
 
+    var toggleRepeatPassword = function () {
+        var x = $('#repeatpassword')[0];
+        if (x.type === "password") {
+            x.type = "text";
+            $('#toggleRepeatPassword').removeClass("fa-eye-slash");
+            $('#toggleRepeatPassword').addClass("fa-eye");
+        } else {
+            x.type = "password";
+            $('#toggleRepeatPassword').removeClass("fa-eye");
+            $('#toggleRepeatPassword').addClass("fa-eye-slash");
+        }
+    }
+
     $('#togglePassword').on("click", togglePassword);
-    $('#login-form').on("submit", loginCallback);
-    $('#signup').on("click", function () {
-        window.location = "/signup"
+    $('#toggleRepeatPassword').on("click", toggleRepeatPassword);
+    $('#signup-form').on("submit", signUpCallback);
+    $('#back').on("click", function () {
+        window.location = "/login"
     });
 })
