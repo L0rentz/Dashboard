@@ -5,9 +5,15 @@ const logger = (req, res, next) => {
 
 const { secret } = require('./config/jwt.config');
 const jwt = require('jsonwebtoken');
+const tokenParser = require('./routes/utils.routes');
 
 const authenticateJWT = (req, res, next) => {
-    const authHeader = req.headers.authorization;
+    authHeader = req.headers.authorization;
+
+    if (!authHeader)
+        authHeader = tokenParser.getCookie(req, 'Authorization');
+
+    console.log(authHeader);
 
     if (authHeader) {
         const token = authHeader.split(' ')[1];

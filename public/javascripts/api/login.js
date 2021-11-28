@@ -18,7 +18,8 @@ jQuery(function() {
             dataType: 'json',
             data: getFormData($('#login-form')),
             success: function(json) {
-                window.location = json.route;
+                Cookies.set('Authorization', 'Bearer ' + json.token),
+                window.location = json.route
             },
             error: function(json) {
                 alert(json.responseJSON.message);

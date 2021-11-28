@@ -2,6 +2,7 @@ const db = require("../models");
 const User = db.users;
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt.config');
+var { user } = require("../config/db.config");
 
 async function findUserByEmail(email) {
     try {
@@ -11,6 +12,28 @@ async function findUserByEmail(email) {
     catch (ex) {
         throw ex;
     }
+}
+
+async function findUserByJWT(jwt) {
+    try {
+        users = await User.findAll({ where: { jwt: jwt } })
+        return (users instanceof Array) ? users[0] : null;
+    }
+    catch (ex) {
+        throw ex;
+    }
+}
+
+exports.relog = async (jwtCookie) => {
+    console.log(jwtCookie)
+
+    user = null;
+    if (jwtCookie)
+        user = await findUserByJWT(jwtCookie);
+
+    if (user == null || !(user instanceof User))
+        return false;
+    return true;
 }
 
 exports.signup = (req, res) => {
@@ -62,10 +85,12 @@ exports.login = async (req, res) => {
         });
     } else {
         if (user.verifyPassword(req.body.password)) {
+            user.jwt = jwt.sign({ email: user.email }, secret);
+            user.save();
             res.status(200).json({
                 message: "Login successful",
                 route: "/dashboard",
-                token: jwt.sign({ email: user.email }, secret)
+                token: user.dataValues.jwt,
             })
         } else {
             res.status(403).send({
