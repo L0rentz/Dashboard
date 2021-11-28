@@ -1,4 +1,6 @@
 jQuery(function() {
+    $('#togglePassword').attr('style', 'transform: translateX(-' + $('#togglePassword').width() + 'px); margin-left: -' + $('#togglePassword').width() + 'px');
+
     function getFormData($form){
         var unindexed_array = $form.serializeArray();
         var indexed_array = {};
@@ -27,5 +29,19 @@ jQuery(function() {
         });
     }
 
-    $('#login-form').on("submit", loginCallback)
+    var togglePassword = function () {
+        var x = $('#password')[0];
+        if (x.type === "password") {
+          x.type = "text";
+          $('#togglePassword').removeClass("fa-eye-slash");
+          $('#togglePassword').addClass("fa-eye");
+        } else {
+          x.type = "password";
+          $('#togglePassword').removeClass("fa-eye");
+          $('#togglePassword').addClass("fa-eye-slash");
+        }
+      }
+
+    $('#togglePassword').on("click", togglePassword);
+    $('#login-form').on("submit", loginCallback);
 })

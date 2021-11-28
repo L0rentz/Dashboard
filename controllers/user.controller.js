@@ -24,7 +24,7 @@ async function findUserByJWT(jwt) {
     }
 }
 
-exports.relog = async (jwtCookie) => {
+exports.checkJwtCookie = async (jwtCookie) => {
     console.log(jwtCookie)
 
     user = null;

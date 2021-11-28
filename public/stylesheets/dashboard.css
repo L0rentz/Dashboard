@@ -48,10 +48,16 @@
 }
 
 .header-title {
+    display: inline-block;
     margin-bottom: 0;
 }
 
+.spacer {
+    margin-top: 1.5rem;
+}
+
 .header-pretitle {
+    display: inline-block;
     text-transform: uppercase;
     letter-spacing: .08em;
     color: #95aac9;
@@ -63,9 +69,14 @@
     border-bottom: 1px solid #e3ebf6;
 }
 
+.right {
+    position: absolute;
+    right: 16px;
+  }
+
 .pointer {
     cursor: pointer;
-  }
+}
 
 .temperature {
     float: right;

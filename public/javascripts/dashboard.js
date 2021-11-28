@@ -136,3 +136,8 @@ function toggleNav() {
         openNav();
     }
 }
+
+function logout() {
+    Cookies.remove('Authorization'),
+    window.location = '/login';
+}

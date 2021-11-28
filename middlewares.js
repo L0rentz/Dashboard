@@ -1,25 +1,26 @@
+const { secret } = require('./config/jwt.config');
+const jwt = require('jsonwebtoken');
+const utils = require('./routes/utils.routes');
+const users = require("./controllers/user.controller");
+
 const logger = (req, res, next) => {
     console.log(`Received: ${req.method} ${req.path} Body: ${req.body}`);
     next()
 }
 
-const { secret } = require('./config/jwt.config');
-const jwt = require('jsonwebtoken');
-const tokenParser = require('./routes/utils.routes');
-
-const authenticateJWT = (req, res, next) => {
+const authenticateJWT = async (req, res, next) => {
     authHeader = req.headers.authorization;
 
     if (!authHeader)
-        authHeader = tokenParser.getCookie(req, 'Authorization');
+        authHeader = utils.getCookie(req, 'Authorization');
 
     console.log(authHeader);
 
     if (authHeader) {
         const token = authHeader.split(' ')[1];
-
+        const isInDb = await users.checkJwtCookie(token)
         jwt.verify(token, secret, (err, user) => {
-            if (err) {
+            if (err || !isInDb) {
                 return res.status(403).send({
                     message: 'Invalid authorization token.'
                 });

@@ -19,7 +19,7 @@ exports.getCookie = (req, cname) => {
 exports.checkRelog = async (req) => {
     const jwtCookie = this.getCookie(req, 'Authorization');
     const token = jwtCookie.split(' ')[1];
-    const relogCheck = await users.relog(token);
+    const relogCheck = await users.checkJwtCookie(token);
 
     return (relogCheck);
 }
