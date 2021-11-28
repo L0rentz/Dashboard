@@ -73,7 +73,7 @@ function getNewWidget() {
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <button class="dropdown-item" type="button" onclick="getWeatherContent('W`+ widgetID + `')">Weather widget</button>
                         <button class="dropdown-item" type="button" onclick="getFormulaOneContent('W`+ widgetID + `')">Formula one widget</button>
-                        <button class="dropdown-item" type="button">Something else here</button>
+                        <button class="dropdown-item" type="button" onclick="getFootballContent('W`+ widgetID + `')">Football widget</button>
                     </div>
                   </div>
                   </div>
@@ -97,6 +97,15 @@ function getWeatherContent(id) {
     title.append("Weather");
     container.empty();
     container.append(getWeatherWidgetContent(id));
+}
+
+function getFootballContent(id) {
+    let container = $("#" + id).find('.widget-content');
+    let title = $("#" + id).find('.title');
+    title.empty();
+    title.append("Football");
+    container.empty();
+    container.append(getFootballWidgetContent(id));
 }
 
 function openNav() {

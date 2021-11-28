@@ -52,3 +52,53 @@ function getWeatherData(id, city)
         }
     });
 }
+
+function getFootballLeagues(id, callback)
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        contentType: 'application/json',
+        url: `https://api-football-standings.azharimm.site/leagues/`,
+        beforeSend: function () {
+            console.log("Loading...");
+            appendLoading(id);
+            //SPINNER
+        },
+        success: function (json) {
+            callback(id, json);
+        },
+        error: function (json) {
+            alert("error !");
+            console.log(json);
+        }
+    });
+}
+
+function getFootballDataByLeague(id, league, year)
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        contentType: 'application/json',
+        url: `https://api-football-standings.azharimm.site/leagues/`+ league +`/standings?season=`+ year +``,
+        beforeSend: function () {
+            console.log("Loading...");
+            appendLoading(id);
+            //SPINNER
+        },
+        success: function (json) {
+            appendLeagueStandings(id, json);
+            console.log(json);
+        },
+        error: function (json) {
+            alert("No information from that specific year !");
+            getFootballContent(id);
+            console.log(json);
+        }
+    });
+}

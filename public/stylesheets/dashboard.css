@@ -76,6 +76,11 @@
     -webkit-animation: up 2s cubic-bezier(.39, 0, .38, 1) .2s;
 }
 
+td > img {
+    height: 40px;
+    width: 40px;
+}
+
 .mood {
     color: #777;
 }
