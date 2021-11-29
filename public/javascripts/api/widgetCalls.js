@@ -17,11 +17,13 @@ function getFormulaData(id, year, category)
                 appendDriversList(id, json)
             if (category === "constructors")
                 appendConstructorList(id, json);
+            setRefresher($("#" + id).find('.refresher'), `getFormulaData('`+ id +`', '`+ year +`', '`+ category +`');`);
             console.log(json);
         },
         error: function (json) {
             alert("error !");
             getFormulaOneContent(id);
+            setRefresher($("#" + id).find('.refresher'), `getFormulaOneContent('`+ id +`');`);
             console.log(json);
         }
     });
@@ -43,11 +45,13 @@ function getWeatherData(id, city)
         },
         success: function (json) {
             appendWeather(id, json);
+            setRefresher($("#" + id).find('.refresher'), `getWeatherData('`+ id +`', '`+ city +`');`);
             console.log(json);
         },
         error: function (json) {
             alert("error !");
             getWeatherContent(id);
+            setRefresher($("#" + id).find('.refresher'), `getWeatherContent('`+ id +`');`);
             console.log(json);
         }
     });
@@ -93,11 +97,15 @@ function getFootballDataByLeague(id, league, year)
         },
         success: function (json) {
             appendLeagueStandings(id, json);
+            setRefresher($("#" + id).find('.refresher'), `getFootballDataByLeague('`+ id +`', '`+ league +`', '`+ year +`');`);
             console.log(json);
         },
         error: function (json) {
             alert("No information from that specific year !");
             getFootballContent(id);
+            setRefresher(function () {
+                getFootballContent(id);
+            }, $("#" + id).find('.widget-content').find('.refresher'));
             console.log(json);
         }
     });

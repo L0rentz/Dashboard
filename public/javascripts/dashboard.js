@@ -1,17 +1,23 @@
 var grid;
 var widgetID = 0;
 
-window.onload = function () {
-    var options = {
-        acceptWidgets: true,
-        minRow: 3,
-        disableDrag: true,
-        disableResize: true,
-    };
+const svgRefresh = ``;
 
-    grid = GridStack.init(options);
-    GridStack.setupDragIn('#mySidenav .grid-stack-item', { revert: 'invalid', scroll: false, appendTo: 'body', helper: myClone });
+let serializedFull;
+let serializedData;
 
+function getRefresher() {
+    return `<a class="pointer refresher" query="" onclick="console.log('Hahaha');"><svg style="flex: 1;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+    <path   fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
+    <path  d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
+    </svg></a>`
+}
+
+function setRefresher($obj, callbackName) {
+    $obj.attr("onclick", callbackName);
+}
+
+function initGridHandlers() {
     grid.on('dropped', function (event, previousWidget, newWidget) {
         grid.removeWidget(newWidget.el);
         console.log(newWidget);
@@ -37,10 +43,40 @@ window.onload = function () {
         let $grid = $('.my-grid');
         $grid.removeClass("dragging");
     });
+    $('tr[data-href]').on("click", function () {
+        document.location = $(this).data('href');
+    });
+}
+
+window.onload = function () {
+    var options = {
+        acceptWidgets: true,
+        minRow: 3,
+        disableDrag: true,
+        disableResize: true,
+    };
 
     function myClone(event) {
         return event.target.cloneNode(true);
     }
+
+    grid = GridStack.init(options);
+    GridStack.setupDragIn('#mySidenav .grid-stack-item', { revert: 'invalid', scroll: false, appendTo: 'body', helper: myClone });
+
+    initGridHandlers();
+}
+
+function saveFullGrid() {
+    serializedFull = grid.save(true, true);
+    serializedData = serializedFull.children;
+    let json = JSON.stringify(serializedFull, null, '  ');
+}
+
+function loadFullGrid() {
+    if (!serializedFull) return;
+    grid.destroy(true);
+    grid = GridStack.addGrid(document.querySelector('.my-grid'), serializedFull)
+    initGridHandlers();
 }
 
 function appendLoading(id) {
@@ -49,6 +85,7 @@ function appendLoading(id) {
                     </div>`;
     let container = $("#" + id).find('.widget-content');
     let title = $("#" + id).find('.title');
+    container.addClass('center-box');
     title.empty();
     title.append("Loading...");
     container.empty();
@@ -57,28 +94,35 @@ function appendLoading(id) {
 
 function getNewWidget() {
     widgetID++;
-    return `<div id="W` + widgetID + `" class="grid-stack-item ui-draggable" gs-w="3" gs-h="3">
-                <div class="grid-stack-item-content" draggable="true">
-                  <div class="card-row card-header">
-                    <div class="title">Widget title</div>
-                    <button type="button" class="btn-close" aria-label="Close" onclick="grid.removeWidget(this.parentNode.parentNode.parentNode)"></button>
-                  </div>
-                  <div class="card-body widget-content center-box">
-                    <h5 class="card-title">Widget description</h5>
-                    <div class="dropdown">
-                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Customize your widget
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <button class="dropdown-item" type="button" onclick="getWeatherContent('W`+ widgetID + `')">Weather widget</button>
-                        <button class="dropdown-item" type="button" onclick="getFormulaOneContent('W`+ widgetID + `')">Formula one widget</button>
-                        <button class="dropdown-item" type="button" onclick="getFootballContent('W`+ widgetID + `')">Football widget</button>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-            </div>`;
+    return `<div class="grid-stack-item ui-draggable" gs-w="3" gs-h="3">
+    <div class="grid-stack-item-content" draggable="true">
+      <div id="W` + widgetID + `">
+        <div class="card-row card-header">
+          <div class="title">Widget title</div>
+          `+ getRefresher() +`
+          <button type="button" style="flex: 1;" class="btn-close" aria-label="Close"
+            onclick="grid.removeWidget(this.parentNode.parentNode.parentNode.parentNode)"></button>
+        </div>
+        <div class="card-body widget-content center-box">
+          <h5 class="card-title">Widget description</h5>
+          <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Customize your widget
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="dropdown-item" type="button" onclick="getWeatherContent('W`+ widgetID + `')">Weather
+                widget</button>
+              <button class="dropdown-item" type="button" onclick="getFormulaOneContent('W`+ widgetID + `')">Formula one
+                widget</button>
+              <button class="dropdown-item" type="button" onclick="getFootballContent('W`+ widgetID + `')">Football
+                widget</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
 }
 
 function getFormulaOneContent(id) {
@@ -126,6 +170,7 @@ function closeNav() {
     document.getElementById("main").style.marginLeft = "0";
     grid.enableMove(false);
     grid.enableResize(false);
+    saveFullGrid();
 }
 
 function toggleNav() {
