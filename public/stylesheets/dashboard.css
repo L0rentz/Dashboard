@@ -110,7 +110,7 @@ td > img {
 
 .transform:hover {
     transform: rotate(-360deg);
-    fill: red;
+    fill: #39ace7;
 }
 
 .transform-close {
@@ -122,5 +122,5 @@ td > img {
 }
 
 .transform-close:hover > * {
-    fill: red;
+    fill: #39ace7;
 }
