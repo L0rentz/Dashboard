@@ -112,3 +112,15 @@ td > img {
     transform: rotate(-360deg);
     fill: red;
 }
+
+.transform-close {
+    padding-left: 5px;
+}
+
+.transform-close > * {
+    transition: fill 0.3s ease-in;
+}
+
+.transform-close:hover > * {
+    fill: red;
+}
