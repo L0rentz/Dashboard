@@ -67,6 +67,8 @@ window.onload = function () {
     grid = GridStack.init(options);
     GridStack.setupDragIn('#mySidenav .grid-stack-item', { revert: 'invalid', scroll: false, appendTo: 'body', helper: myClone });
 
+    getDashboard(loadFullGrid);
+
     initGridHandlers();
 }
 
