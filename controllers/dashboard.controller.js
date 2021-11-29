@@ -41,4 +41,18 @@ exports.save = async (req, res) => {
     res.status(200);
 }
 
+exports.load = async (req, res) => {
+    var jwt = splitOnFirst(req.cookies.Authorization, ' ')[1];
+    var user = await findUserByJWT(jwt);
+    if (!user) {
+        res.status(500);
+        return;
+    }
+    var dashboard = await findDashboardByUserid(user.dataValues.id);
+    var json = {
+        dashboard: JSON.parse(dashboard.dataValues.grid),
+    }
+    res.status(200).send(json);
+}
+
 module.exports = exports;

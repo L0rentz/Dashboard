@@ -16,6 +16,8 @@ module.exports = app => {
 
     router.post("/dashboard/save", dashboard.save);
 
+    router.get("/dashboard/load", dashboard.load);
+
     app.get('/login', async (req, res) => {
         if (!await utils.checkRelog(req))
             res.sendFile(path.join(__dirname + '/../views/index.html'));
