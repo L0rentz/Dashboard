@@ -1,10 +1,25 @@
 var grid;
-var widgetID = 0;
 
 const svgRefresh = ``;
 
 let serializedFull;
 let serializedData;
+
+function generateUUID() {
+    var d = new Date().getTime();
+    var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now() * 1000)) || 0;
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16;
+        if (d > 0) {
+            r = (d + r) % 16 | 0;
+            d = Math.floor(d / 16);
+        } else {
+            r = (d2 + r) % 16 | 0;
+            d2 = Math.floor(d2 / 16);
+        }
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+}
 
 function getClose() {
     return `<svg class="transform-close" xmlns='http://www.w3.org/2000/svg'  width="20" height="20" fill="currentColor" viewBox='0 0 16 16'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>`
@@ -67,6 +82,8 @@ window.onload = function () {
     grid = GridStack.init(options);
     GridStack.setupDragIn('#mySidenav .grid-stack-item', { revert: 'invalid', scroll: false, appendTo: 'body', helper: myClone });
 
+    getDashboard(loadFullGrid);
+
     initGridHandlers();
 }
 
@@ -83,10 +100,10 @@ function saveFullGrid() {
     serializedFull = grid.save(true, true);
     serializedData = serializedFull.children;
     let json = JSON.stringify(serializedFull, null, '  ');
+    postDashboard(json);
 }
 
-function loadFullGrid() {
-    if (!serializedFull) return;
+function loadFullGrid(json) {
     grid.destroy(true);
     grid = GridStack.addGrid(document.querySelector('.my-grid'), json.dashboard)
     initGridHandlers();
@@ -106,16 +123,16 @@ function appendLoading(id) {
 }
 
 function getNewWidget() {
-    widgetID++;
+    let widgetID = generateUUID();
     return `<div class="grid-stack-item ui-draggable" gs-w="3" gs-h="3">
     <div class="grid-stack-item-content" draggable="true">
       <div id="W` + widgetID + `">
         <div class="card-row card-header">
           <div class="title">Widget title</div>
           `+ getRefresher() + `
-          <a class="transform-close pointer" onclick="grid.removeWidget(this.parentNode.parentNode.parentNode.parentNode)">
-            `+ getClose() +`
-          </a>
+          <button type="button" style="flex: 1;" class="btn-close" aria-label="Close"
+            onclick="grid.removeWidget(this.parentNode.parentNode.parentNode.parentNode)"></button>
+        </div>
         <div class="card-body widget-content center-box">
           <h5 class="card-title">Widget description</h5>
           <div class="dropdown">

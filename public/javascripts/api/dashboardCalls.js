@@ -20,10 +20,11 @@ function getDashboard(callback) {
         contentType: 'application/json',
         url: "/user/dashboard/load",
         dataType: 'json',
-        data: {code: "Anal"},
         success: function (json) {
-            console.log("grid loaded!")
-            callback();
+            if (json.dashboard != null) {
+                console.log("grid loaded!")
+                callback(json);
+            } else console.log("No grid saved");
         },
         error: function (json) {
             console.log("Error:\n" + json);

@@ -113,14 +113,24 @@ td > img {
     fill: #39ace7;
 }
 
-.transform-close {
-    padding-left: 5px;
+.btn:hover, .btn:focus, .btn-dark:focus, .btn:not(:disabled):not(.disabled):active, .btn:active, .btn.active, .open .dropdown-toggle.btn
+{
+
+    background-color: #39ace7;
+    border-color: #39ace7;
+    color: white;
 }
 
-.transform-close > * {
-    transition: fill 0.3s ease-in;
+.btn:focus, .btn-dark:focus {
+    box-shadow: 0 0 0 0.2rem rgb(4 115 226 / 50%);
+}
+.btn:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 0.2rem rgb(4 115 226 / 50%);
 }
 
-.transform-close:hover > * {
-    fill: #39ace7;
+.btn
+  {
+    background-color: #56baed;
+    border-color: #56baed;
+    color: white;
 }
