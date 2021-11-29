@@ -112,3 +112,25 @@ td > img {
     transform: rotate(-360deg);
     fill: red;
 }
+
+.btn:hover, .btn:focus, .btn-dark:focus, .btn:not(:disabled):not(.disabled):active, .btn:active, .btn.active, .open .dropdown-toggle.btn
+{
+
+    background-color: #39ace7;
+    border-color: #39ace7;
+    color: white;
+}
+
+.btn:focus, .btn-dark:focus {
+    box-shadow: 0 0 0 0.2rem rgb(4 115 226 / 50%);
+}
+.btn:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 0.2rem rgb(4 115 226 / 50%);
+}
+
+.btn
+  {
+    background-color: #56baed;
+    border-color: #56baed;
+    color: white;
+}
