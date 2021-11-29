@@ -52,6 +52,10 @@
     margin-bottom: 0;
 }
 
+.title {
+    flex: 15;
+}
+
 .spacer {
     margin-top: 1.5rem;
 }

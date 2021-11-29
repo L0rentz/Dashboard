@@ -16,6 +16,7 @@ function appendFootballLeagues(id, json)
     container.append($year);
     container.append($league);
     container.append(`<button type="button" class="btn btn-outline-dark btn-sm" style="width: 100%" onClick="validateButtonFootball('`+ id + `')">Validate</button>`);
+    setRefresher($("#" + id).find('.refresher'), `getFootballContent('`+ id +`')`);
 }
 
 function validateButtonFootball(id)
