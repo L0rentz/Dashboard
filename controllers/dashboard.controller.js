@@ -32,20 +32,20 @@ exports.save = async (req, res) => {
     var jwt = splitOnFirst(req.cookies.Authorization, ' ')[1];
     var user = await findUserByJWT(jwt);
     if (!user) {
-        res.status(500);
+        res.status(500).send("User not found.")
         return;
     }
     var dashboard = await findDashboardByUserid(user.dataValues.id);
     dashboard.grid = JSON.stringify(req.body);
     dashboard.save();
-    res.status(200);
+    res.status(200).send("Grid saved.");
 }
 
 exports.load = async (req, res) => {
     var jwt = splitOnFirst(req.cookies.Authorization, ' ')[1];
     var user = await findUserByJWT(jwt);
     if (!user) {
-        res.status(500);
+        res.status(500).send("User not found.");
         return;
     }
     var dashboard = await findDashboardByUserid(user.dataValues.id);
