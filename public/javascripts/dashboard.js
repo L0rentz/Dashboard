@@ -139,5 +139,6 @@ function toggleNav() {
 
 function logout() {
     Cookies.remove('Authorization'),
+    Cookies.remove('access_token'),
     window.location = '/login';
 }

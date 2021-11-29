@@ -2,8 +2,8 @@ const db = require("../models");
 const User = db.users;
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt.config');
+const validator = require("email-validator");
 var { user } = require("../config/db.config");
-var validator = require("email-validator");
 
 async function findUserByEmail(email) {
     try {
@@ -25,8 +25,19 @@ async function findUserByJWT(jwt) {
     }
 }
 
+exports.getUserByJWT = async (email) => {
+    try {
+        users = await User.findAll({ where: { email: email } })
+        return (users instanceof Array) ? users[0] : null;
+    }
+    catch (ex) {
+        throw ex;
+    }
+}
+
 exports.checkJwtCookie = async (jwtCookie) => {
-    console.log(jwtCookie)
+    if (jwtCookie)
+        console.log(jwtCookie)
 
     user = null;
     if (jwtCookie)
@@ -39,6 +50,7 @@ exports.checkJwtCookie = async (jwtCookie) => {
 
 exports.signup = (req, res) => {
     console.log(req.body)
+
     if (!req.body.email, !req.body.password) {
         res.status(400).send({
             message: 'Please provide all the fields.'
@@ -75,6 +87,33 @@ exports.signup = (req, res) => {
                 errObj: err
             });
         });
+}
+
+exports.oauthSignup = async (email, token) => {
+    console.log(email + ':' + token);
+
+    if (!email)
+        return false;
+
+    if (!token)
+        return false;
+
+    if (!validator.validate(email))
+        return false;
+
+    // Create the User Record
+    const newUser = {
+        email: email,
+        oauth: token,
+        salt: User.generateSalt(),
+        jwt: jwt.sign({ email: email }, secret),
+    }
+
+    const result = await User.create(newUser);
+
+    if (result instanceof User)
+        return true;
+    return false;
 }
 
 exports.login = async (req, res) => {

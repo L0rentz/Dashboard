@@ -43,9 +43,18 @@ jQuery(function () {
         }
     }
 
+    var oauth2Callback = function() {
+        window.location = '/googleoauth2';
+    }
+
+    $('.customGPlusSignIn').on("click", oauth2Callback);
     $('#togglePassword').on("click", togglePassword);
     $('#login-form').on("submit", loginCallback);
     $('#signup').on("click", function () {
         window.location = "/signup"
     });
+
+    let searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.has('error'))
+        $('#error').text(searchParams.get('error'));
 })

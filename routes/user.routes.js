@@ -1,8 +1,11 @@
 module.exports = app => {
     const path = require('path');
-    const users = require("../controllers/user.controller.js");
+    const users = require("../controllers/user.controller");
     const { _, auth } = require('../middlewares');
     const utils = require('./utils.routes');
+    const url = require('url');
+    const oauth = require('../oauth/google');
+    const { google } = require('googleapis');
 
     var router = require("express").Router();
 
@@ -23,6 +26,41 @@ module.exports = app => {
 
     app.get('/signup', (req, res) => {
         res.sendFile(path.join(__dirname + '/../views/signup.html'));
+    });
+
+    app.get('/oauth2callback', async (req, res) => {
+        var params = url.parse(req.url, true).query;
+        oauth.oauth2Client.getToken(params.code).then(async (value) => {
+            const { tokens } = value;
+            oauth.oauth2Client.setCredentials(tokens);
+            const dat = await google.oauth2('v2').userinfo.get();
+            const result = await oauth.tokenHandling(dat, tokens);
+            if (result == 'signup' || result == 'login') {
+                var userFound = await users.getUserByJWT(dat.data.email);
+                if (userFound) {
+                    res.cookie('Authorization', 'Bearer ' + userFound.dataValues.jwt, { httpOnly: false });
+                    res.cookie('access_token', tokens.access_token, { httpOnly: false });
+                    res.redirect('/login');
+                    return;
+                }
+            }
+            const components = {
+                error: 'An error happened.',
+            }
+            const urlParameters = new URLSearchParams(components);
+            res.redirect('/login' + '?' + urlParameters);
+        }).catch((err) => {
+            const components = {
+                error: 'An error happened.',
+            }
+            const urlParameters = new URLSearchParams(components);
+            res.redirect('/login' + '?' + urlParameters);
+            return;
+        });
+    });
+
+    app.get('/googleoauth2', (req, res) => {
+        res.redirect(oauth.authorizeUrl);
     });
 
     //router.post("/changepassword", auth, users.changepassword);
