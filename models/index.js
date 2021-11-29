@@ -20,5 +20,6 @@ db.Sequelize = Sequelize;
 db.connection = sequelize;
 
 db.users = require('./user.model.js')(db.connection, db.Sequelize)
+db.dashboards = require('./dashboard.model.js')(db.connection, db.Sequelize)
 
 module.exports = db;

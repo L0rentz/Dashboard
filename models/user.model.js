@@ -1,8 +1,15 @@
 const crypto = require('crypto');
-const { user } = require('../config/db.config');
 
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define('user', {
+        id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+            get() {
+                return () => this.getDataValue('id')
+            }
+        },
         email: {
             type: Sequelize.STRING,
             set: function (val) {

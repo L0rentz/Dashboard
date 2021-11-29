@@ -1,6 +1,7 @@
 module.exports = app => {
     const path = require('path');
     const users = require("../controllers/user.controller");
+    const dashboard = require("../controllers/dashboard.controller");
     const { _, auth } = require('../middlewares');
     const utils = require('./utils.routes');
     const url = require('url');
@@ -12,6 +13,8 @@ module.exports = app => {
     router.post("/signup", users.signup);
 
     router.post("/login", users.login);
+
+    router.post("/dashboard/save", dashboard.save);
 
     app.get('/login', async (req, res) => {
         if (!await utils.checkRelog(req))
@@ -55,7 +58,6 @@ module.exports = app => {
             }
             const urlParameters = new URLSearchParams(components);
             res.redirect('/login' + '?' + urlParameters);
-            return;
         });
     });
 

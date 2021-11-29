@@ -1,5 +1,6 @@
 const db = require("../models");
 const User = db.users;
+const Dashboard = db.dashboards;
 const jwt = require('jsonwebtoken');
 const { secret } = require('../config/jwt.config');
 const validator = require("email-validator");
@@ -65,18 +66,23 @@ exports.signup = (req, res) => {
         return;
     }
 
-    // Create the User Record
     const newUser = {
         email: req.body.email,
         password: req.body.password
     }
 
     User.create(newUser)
-        .then(data => {
-            res.send({
-                message: "Signup successful!",
-                route: "/login"
-            });
+        .then(async data => {
+            const dbUser = await findUserByEmail(req.body.email);
+            const userDashboard = {
+                userid: dbUser.dataValues.id,
+            }
+            Dashboard.create(userDashboard).then(data => {
+                res.send({
+                    message: "Signup successful!",
+                    route: "/login"
+                });
+            })
         })
         .catch(err => {
             let message = err.message || "Some error occurred while signing you up.";
@@ -101,7 +107,10 @@ exports.oauthSignup = async (email, token) => {
     if (!validator.validate(email))
         return false;
 
-    // Create the User Record
+    const isUser = await findUserByEmail(email);
+    if (isUser)
+        return true;
+
     const newUser = {
         email: email,
         oauth: token,
@@ -109,8 +118,13 @@ exports.oauthSignup = async (email, token) => {
         jwt: jwt.sign({ email: email }, secret),
     }
 
-    const result = await User.create(newUser);
-
+    const result = await User.create(newUser).then(async data => {
+        const dbUser = await findUserByEmail(email);
+        const userDashboard = {
+            userid: dbUser.dataValues.id,
+        }
+        await Dashboard.create(userDashboard);
+    });
     if (result instanceof User)
         return true;
     return false;
