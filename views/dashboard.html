@@ -3,7 +3,8 @@
 <html>
 
 <head>
-  <title></title>
+  <title>Dashboard</title>
+  <script src="javascripts/api/dashboardCalls.js"></script>
   <script src="javascripts/dashboard.js"></script>
   <script src="javascripts/api/widgetCalls.js"></script>
   <script src="javascripts/formulaWidget.js"></script>
@@ -50,9 +51,23 @@
             <h6 class="header-pretitle">Overview</h6>
             <button type="button" class="lift btn btn-dark right" onclick="logout()">Logout</button>
           </div>
-          <div class="spacer">
-            <h1 class="header-title">Dashboard</h1>
-            <button type="button" class="lift btn btn-dark right" onclick="toggleNav()">Edit Dashboard</button>
+          <div class="spacer" style="display: flex;">
+            <div style="flex: 6;">
+              <h1 class="header-title" >Dashboard</h1>
+            </div>
+            <div style="justify-content: center; flex: 6;">
+              <a class="pointer" onclick="refreshDashboard()" style="height: 45px; width: 45px; display: block;">
+                <svg class="transform" style="flex: 1;" xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
+                  class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z" />
+                  <path
+                    d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
+                </svg>
+              </a>
+            </div>
+            <a style="justify-content: center;">
+              <button type="button" class="lift btn btn-dark" onclick="toggleNav()">Edit Dashboard</button>
+            </a>
           </div>
         </div>
       </div>

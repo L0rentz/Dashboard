@@ -6,8 +6,12 @@ const svgRefresh = ``;
 let serializedFull;
 let serializedData;
 
+function getClose() {
+    return `<svg class="transform-close" xmlns='http://www.w3.org/2000/svg'  width="20" height="20" fill="currentColor" viewBox='0 0 16 16'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>`
+}
+
 function getRefresher() {
-    return `<a class="pointer refresher" query="" onclick="console.log('Hahaha');"><svg style="flex: 1;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+    return `<a class="pointer refresher" query="" onclick="console.log('Hahaha');"><svg class="transform" style="flex: 1;" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
     <path   fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/>
     <path  d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/>
     </svg></a>`
@@ -66,6 +70,15 @@ window.onload = function () {
     initGridHandlers();
 }
 
+function refreshDashboard() {
+    $('.grid-stack').children().each(function () {
+        // console.log($(this));
+        let $refresher = $(this).find('.refresher');
+        $refresher.click();
+    });
+
+}
+
 function saveFullGrid() {
     serializedFull = grid.save(true, true);
     serializedData = serializedFull.children;
@@ -75,7 +88,7 @@ function saveFullGrid() {
 function loadFullGrid() {
     if (!serializedFull) return;
     grid.destroy(true);
-    grid = GridStack.addGrid(document.querySelector('.my-grid'), serializedFull)
+    grid = GridStack.addGrid(document.querySelector('.my-grid'), json.dashboard)
     initGridHandlers();
 }
 
@@ -99,10 +112,10 @@ function getNewWidget() {
       <div id="W` + widgetID + `">
         <div class="card-row card-header">
           <div class="title">Widget title</div>
-          `+ getRefresher() +`
-          <button type="button" style="flex: 1;" class="btn-close" aria-label="Close"
-            onclick="grid.removeWidget(this.parentNode.parentNode.parentNode.parentNode)"></button>
-        </div>
+          `+ getRefresher() + `
+          <a class="transform-close pointer" onclick="grid.removeWidget(this.parentNode.parentNode.parentNode.parentNode)">
+            `+ getClose() +`
+          </a>
         <div class="card-body widget-content center-box">
           <h5 class="card-title">Widget description</h5>
           <div class="dropdown">
@@ -184,6 +197,6 @@ function toggleNav() {
 
 function logout() {
     Cookies.remove('Authorization'),
-    Cookies.remove('access_token'),
-    window.location = '/login';
+        Cookies.remove('access_token'),
+        window.location = '/login';
 }
