@@ -14,9 +14,9 @@ module.exports = app => {
 
     router.post("/login", users.login);
 
-    router.post("/dashboard/save", dashboard.save);
+    router.post("/dashboard/save", auth, dashboard.save);
 
-    router.get("/dashboard/load", dashboard.load);
+    router.get("/dashboard/load", auth, dashboard.load);
 
     app.get('/login', async (req, res) => {
         if (!await utils.checkRelog(req))
