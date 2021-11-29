@@ -23,7 +23,7 @@ function getDashboard(callback) {
         success: function (json) {
             if (json.dashboard != null) {
                 console.log("grid loaded!")
-                callback();
+                callback(json);
             } else console.log("No grid saved");
         },
         error: function (json) {
