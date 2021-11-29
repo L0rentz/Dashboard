@@ -66,6 +66,16 @@ window.onload = function () {
     initGridHandlers();
 }
 
+function refreshDashboard()
+{
+    $('.grid-stack').children().each(function () {
+        // console.log($(this));
+        let $refresher = $(this).find('.refresher');
+        $refresher.click();
+    });
+
+}
+
 function saveFullGrid() {
     serializedFull = grid.save(true, true);
     serializedData = serializedFull.children;
@@ -75,7 +85,7 @@ function saveFullGrid() {
 function loadFullGrid() {
     if (!serializedFull) return;
     grid.destroy(true);
-    grid = GridStack.addGrid(document.querySelector('.my-grid'), serializedFull)
+    grid = GridStack.addGrid(document.querySelector('.my-grid'), json.dashboard)
     initGridHandlers();
 }
 

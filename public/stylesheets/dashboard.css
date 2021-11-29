@@ -99,3 +99,16 @@ td > img {
 .mood {
     color: #777;
 }
+
+.transform {
+    transition: transform 0.4s ease-in;
+}
+
+.transform > path {
+    transition: fill 0.4s ease-in;
+}
+
+.transform:hover {
+    transform: rotate(-360deg);
+    fill: red;
+}
