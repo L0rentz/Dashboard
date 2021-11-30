@@ -41,6 +41,7 @@ function initGridHandlers() {
         grid.removeWidget(newWidget.el);
         console.log(newWidget);
         grid.addWidget(getNewWidget(), { x: newWidget.x, y: newWidget.y });
+        saveFullGrid();
     });
 
     grid.on('dragstart', function (event, el) {
@@ -51,6 +52,7 @@ function initGridHandlers() {
     grid.on('dragstop', function (event, el) {
         let $grid = $('.my-grid');
         $grid.removeClass("dragging");
+        saveFullGrid();
     });
 
     grid.on('resizestart', function (event, el) {
@@ -61,6 +63,7 @@ function initGridHandlers() {
     grid.on('resizestop', function (event, el) {
         let $grid = $('.my-grid');
         $grid.removeClass("dragging");
+        saveFullGrid();
     });
     $('tr[data-href]').on("click", function () {
         document.location = $(this).data('href');
