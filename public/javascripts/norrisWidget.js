@@ -16,7 +16,7 @@ function appendNorrisCategories(id, json)
     container.append('<p>This widget retrieves a random chuck norris joke from a given category.</p>')
     container.append($categorie);
     container.append(`<button type="button" class="btn btn-outline-dark btn-sm" style="width: 100%" onClick="validateButtonNorris('`+ id + `')">Validate</button>`);
-    setRefresher($("#" + id).find('.refresher'), `getFootballContent('`+ id +`')`);
+    setRefresher($("#" + id).find('.refresher'), `getNorrisContent('`+ id +`')`);
 }
 
 function validateButtonNorris(id)
