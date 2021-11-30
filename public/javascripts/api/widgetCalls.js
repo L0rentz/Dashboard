@@ -110,3 +110,57 @@ function getFootballDataByLeague(id, league, year)
         }
     });
 }
+
+function getNorrisCategories(id, callback)
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        contentType: 'application/json',
+        url: `https://api.chucknorris.io/jokes/categories`,
+        beforeSend: function () {
+            console.log("Loading...");
+            appendLoading(id);
+            //SPINNER
+        },
+        success: function (json) {
+            callback(id, json);
+        },
+        error: function (json) {
+            alert("error !");
+            console.log(json);
+        }
+    });
+}
+
+function getNorrisByCategory(id, category)
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        contentType: 'application/json',
+        url: `https://api.chucknorris.io/jokes/random?category=`+ category +``,
+        beforeSend: function () {
+            console.log("Loading...");
+            appendLoading(id);
+            //SPINNER
+        },
+        success: function (json) {
+            appendNorrisJoke(id, json);
+            setRefresher($("#" + id).find('.refresher'), `getNorrisByCategory('`+ id +`', '`+ category +`');`);
+            console.log(json);
+        },
+        error: function (json) {
+            alert("No information from that specific year !");
+            getNorrisContent(id);
+            setRefresher(function () {
+                getNorrisContent(id);
+            }, $("#" + id).find('.widget-content').find('.refresher'));
+            console.log(json);
+        }
+    });
+}

@@ -113,6 +113,25 @@ td > img {
     fill: #39ace7;
 }
 
+blockquote {
+    margin: 0;
+}
+
+blockquote p {
+    padding: 15px;
+    background: #eee;
+    border-radius: 5px;
+}
+
+blockquote p:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: .1em;
+    margin-right: .25em;
+    vertical-align: -.4em;
+}
+
 .btn:hover, .btn:focus, .btn-dark:focus, .btn:not(:disabled):not(.disabled):active, .btn:active, .btn.active, .open .dropdown-toggle.btn
 {
 

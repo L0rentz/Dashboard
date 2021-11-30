@@ -147,6 +147,8 @@ function getNewWidget() {
                 widget</button>
               <button class="dropdown-item" type="button" onclick="getFootballContent('W`+ widgetID + `')">Football
                 widget</button>
+              <button class="dropdown-item" type="button" onclick="getNorrisContent('W`+ widgetID + `')">Chuck Norris
+                widget</button>
             </div>
           </div>
         </div>
@@ -180,6 +182,15 @@ function getFootballContent(id) {
     title.append("Football");
     container.empty();
     container.append(getFootballWidgetContent(id));
+}
+
+function getNorrisContent(id) {
+    let container = $("#" + id).find('.widget-content');
+    let title = $("#" + id).find('.title');
+    title.empty();
+    title.append("Chuck Norris jokes");
+    container.empty();
+    container.append(getNorrisWidgetContent(id));
 }
 
 function openNav() {
