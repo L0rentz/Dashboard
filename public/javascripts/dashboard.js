@@ -125,6 +125,13 @@ function appendLoading(id) {
     container.append(spinner);
 }
 
+function deleteWidget(id) {
+    let widget = $("#" + id).parent().parent();
+    console.log(widget);
+    grid.removeWidget(widget[0]);
+    saveFullGrid();
+}
+
 function getNewWidget() {
     let widgetID = generateUUID();
     return `<div class="grid-stack-item ui-draggable" gs-w="3" gs-h="3">
@@ -134,7 +141,7 @@ function getNewWidget() {
           <div class="title">Widget title</div>
           `+ getRefresher() + `
           <button type="button" style="flex: 1;" class="btn-close" aria-label="Close"
-            onclick="grid.removeWidget(this.parentNode.parentNode.parentNode.parentNode)"></button>
+            onclick="deleteWidget('W`+ widgetID +`')"></button>
         </div>
         <div class="card-body widget-content center-box">
           <h5 class="card-title">Widget description</h5>
