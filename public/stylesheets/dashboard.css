@@ -120,7 +120,7 @@ blockquote {
 blockquote p {
     padding: 15px;
     background: #eee;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 blockquote p:before {

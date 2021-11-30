@@ -33,6 +33,7 @@ function appendNorrisJoke(id, json)
     title.empty();
     title.append(capitalizeFirstLetter(json.categories[0]) + " Norris joke");
     container.empty();
+    container.append(`<div style="justify-content: center; display: flex;"><img src="`+ json.icon_url +`"></img></div>`);
     container.append(`<blockquote><p id="joke_value">`+ json.value +`</p></blockquote>`);
 }
 
