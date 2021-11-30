@@ -167,6 +167,7 @@ function getFormulaOneContent(id) {
     title.append("Formula one");
     container.empty();
     container.append(getFormulaWidgetContent(id));
+    saveFullGrid();
 }
 
 function getWeatherContent(id) {
@@ -176,6 +177,7 @@ function getWeatherContent(id) {
     title.append("Weather");
     container.empty();
     container.append(getWeatherWidgetContent(id));
+    saveFullGrid();
 }
 
 function getFootballContent(id) {
@@ -185,6 +187,7 @@ function getFootballContent(id) {
     title.append("Football");
     container.empty();
     container.append(getFootballWidgetContent(id));
+    saveFullGrid();
 }
 
 function getNorrisContent(id) {
@@ -194,6 +197,7 @@ function getNorrisContent(id) {
     title.append("Chuck Norris jokes");
     container.empty();
     container.append(getNorrisWidgetContent(id));
+    saveFullGrid();
 }
 
 function openNav() {

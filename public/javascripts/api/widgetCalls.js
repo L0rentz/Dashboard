@@ -18,6 +18,7 @@ function getFormulaData(id, year, category)
             if (category === "constructors")
                 appendConstructorList(id, json);
             setRefresher($("#" + id).find('.refresher'), `getFormulaData('`+ id +`', '`+ year +`', '`+ category +`');`);
+            saveFullGrid();
             console.log(json);
         },
         error: function (json) {
@@ -47,6 +48,7 @@ function getWeatherData(id, city)
             appendWeather(id, json);
             setRefresher($("#" + id).find('.refresher'), `getWeatherData('`+ id +`', '`+ city +`');`);
             console.log(json);
+            saveFullGrid();
         },
         error: function (json) {
             alert("error !");
@@ -98,6 +100,7 @@ function getFootballDataByLeague(id, league, year)
         success: function (json) {
             appendLeagueStandings(id, json);
             setRefresher($("#" + id).find('.refresher'), `getFootballDataByLeague('`+ id +`', '`+ league +`', '`+ year +`');`);
+            saveFullGrid();
             console.log(json);
         },
         error: function (json) {
@@ -152,6 +155,7 @@ function getNorrisByCategory(id, category)
         success: function (json) {
             appendNorrisJoke(id, json);
             setRefresher($("#" + id).find('.refresher'), `getNorrisByCategory('`+ id +`', '`+ category +`');`);
+            saveFullGrid();
             console.log(json);
         },
         error: function (json) {
