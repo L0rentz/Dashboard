@@ -153,7 +153,9 @@ function getNewWidget() {
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <button class="dropdown-item" type="button" onclick="getWeatherContent('W`+ widgetID + `')">Weather
                 widget</button>
-              <button class="dropdown-item" type="button" onclick="getFormulaOneContent('W`+ widgetID + `')">Formula one
+              <button class="dropdown-item" type="button" onclick="getFormulaOneDriversContent('W`+ widgetID + `')">Formula one drivers
+                widget</button>
+              <button class="dropdown-item" type="button" onclick="getFormulaOneConstructorsContent('W`+ widgetID + `')">Formula one constructors
                 widget</button>
               <button class="dropdown-item" type="button" onclick="getFootballContent('W`+ widgetID + `')">Football
                 widget</button>
@@ -167,13 +169,24 @@ function getNewWidget() {
   </div>`;
 }
 
-function getFormulaOneContent(id) {
+function getFormulaOneDriversContent(id) {
     let container = $("#" + id).find('.widget-content');
     let title = $("#" + id).find('.title');
     title.empty();
-    title.append("Formula one");
+    title.append("Formula one Drivers");
     container.empty();
-    container.append(getFormulaWidgetContent(id));
+    container.append(getFormulaWidgetContent(id, "drivers"));
+    saveFullGrid();
+}
+
+function getFormulaOneConstructorsContent(id)
+{
+    let container = $("#" + id).find('.widget-content');
+    let title = $("#" + id).find('.title');
+    title.empty();
+    title.append("Formula one Constructors");
+    container.empty();
+    container.append(getFormulaWidgetContent(id, "constructors"));
     saveFullGrid();
 }
 

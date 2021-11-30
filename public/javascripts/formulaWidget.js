@@ -1,17 +1,14 @@
-function getFormulaWidgetContent(id) {
+function getFormulaWidgetContent(id, category) {
     return `
     `+ generateDropDownYears() + `
-    </hr>
-    `+ generateDropDownCategory() + `
-    <button type="button" class="btn btn-outline-dark btn-sm" style="width: 100%" onClick="validateButtonFormula('`+ id + `')">Validate</button>`;
+    <button type="button" class="btn btn-outline-dark btn-sm" style="width: 100%" onClick="validateButtonFormula('`+ id + `', '`+ category +`')">Validate</button>`;
 }
 
-function validateButtonFormula(id)
+function validateButtonFormula(id, category)
 {
     let year = $("#" + id).find('#year');
-    let category = $("#" + id).find('#category');
-    console.log("year: " + year.val() + "\ncategory: " + category.val());
-    getFormulaData(id, year.val(), category.val());
+    console.log("year: " + year.val());
+    getFormulaData(id, year.val(), category);
 }
 
 function generateDropDownCategory() {
