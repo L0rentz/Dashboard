@@ -42,6 +42,19 @@
         </div>
       </div>
     </div>
+    <hr/>
+    <div class="dropdown">
+      <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        Select your refresh rate
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <button class="dropdown-item" type="button" onclick="setRefreshRate(60000)">01:00</button>
+        <button class="dropdown-item" type="button" onclick="setRefreshRate(180000)">03:00</button>
+        <button class="dropdown-item" type="button" onclick="setRefreshRate(300000)">05:00</button>
+        <button class="dropdown-item" type="button" onclick="setRefreshRate(600000)">10:00</button>
+      </div>
+    </div>
   </div>
 
   <div id="main">
@@ -54,12 +67,12 @@
           </div>
           <div class="spacer" style="display: flex;">
             <div style="flex: 6;">
-              <h1 class="header-title" >Dashboard</h1>
+              <h1 class="header-title">Dashboard</h1>
             </div>
             <div style="justify-content: center; flex: 6;">
               <a class="pointer" onclick="refreshDashboard()" style="height: 45px; width: 45px; display: block;">
-                <svg class="transform" style="flex: 1;" xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
-                  class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
+                <svg class="transform" style="flex: 1;" xmlns="http://www.w3.org/2000/svg" width="45" height="45"
+                  fill="currentColor" class="bi bi-arrow-counterclockwise" viewBox="0 0 16 16">
                   <path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z" />
                   <path
                     d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z" />
@@ -70,6 +83,9 @@
               <button type="button" class="lift btn btn-dark" onclick="toggleNav()">Edit Dashboard</button>
             </a>
           </div>
+        </div>
+        <div style="display: flex">
+          <span id="custom-timer" style="flex: 1; color: #95aac9;">Refresh rate: NOT SET</span>
         </div>
       </div>
 

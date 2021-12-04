@@ -1,9 +1,23 @@
 var grid;
+var globalTimer;
 
 const svgRefresh = ``;
 
 let serializedFull;
 let serializedData;
+
+function myTimer() {
+    refreshDashboard();
+}
+
+function setRefreshRate(timer)
+{
+    clearInterval(globalTimer);
+    let $timerSpan = $('#custom-timer');
+    $timerSpan.empty();
+    $timerSpan.append(`Refresh rate: `+ timer / (60000) +` min.`)
+    globalTimer = setInterval(myTimer, timer);
+}
 
 function generateUUID() {
     var d = new Date().getTime();
