@@ -13,8 +13,9 @@ function getFormulaData(id, year, category)
             //SPINNER
         },
         success: function (json) {
-            if (category === "drivers")
+            if (category === "driverStandings") {
                 appendDriversList(id, json)
+            }
             if (category === "constructors")
                 appendConstructorList(id, json);
             setRefresher($("#" + id).find('.refresher'), `getFormulaData('`+ id +`', '`+ year +`', '`+ category +`');`);

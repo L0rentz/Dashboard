@@ -189,7 +189,7 @@ function getFormulaOneDriversContent(id) {
     title.empty();
     title.append("Formula one Drivers");
     container.empty();
-    container.append(getFormulaWidgetContent(id, "drivers"));
+    container.append(getFormulaWidgetContent(id, "driverStandings"));
     saveFullGrid();
 }
 
