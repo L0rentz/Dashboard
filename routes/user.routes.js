@@ -2,11 +2,13 @@ module.exports = app => {
     const path = require('path');
     const users = require("../controllers/user.controller");
     const dashboard = require("../controllers/dashboard.controller");
+    const aboutJson = require("../config/about");
     const { _, auth } = require('../middlewares');
     const utils = require('./utils.routes');
     const url = require('url');
     const oauth = require('../oauth/google');
     const { google } = require('googleapis');
+    const requestIp = require('request-ip');
 
     var router = require("express").Router();
 
@@ -65,6 +67,10 @@ module.exports = app => {
 
     app.get('/googleoauth2', (req, res) => {
         res.redirect(oauth.authorizeUrl);
+    });
+
+    app.get('/about.json', (req, res) => {
+        res.status(200).send(aboutJson.getAboutJson(requestIp.getClientIp(req)));
     });
 
     //router.post("/changepassword", auth, users.changepassword);
