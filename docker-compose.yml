@@ -25,7 +25,7 @@ services:
       - /app/node_modules
       - /app/.next
     ports:
-      - 8080:3000
+      - 3000:3000
     depends_on:
       - postgres
       - adminer
