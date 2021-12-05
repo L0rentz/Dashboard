@@ -37,6 +37,7 @@ module.exports = app => {
 
     app.get('/oauth2callback', async (req, res) => {
         var params = url.parse(req.url, true).query;
+        console.log(params.code);
         oauth.oauth2Client.getToken(params.code).then(async (value) => {
             const { tokens } = value;
             oauth.oauth2Client.setCredentials(tokens);
