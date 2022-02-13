@@ -153,3 +153,31 @@ blockquote p:before {
     border-color: #56baed;
     color: white;
 }
+
+.clock-custom{
+    align-items: center;
+    -webkit-align-items: center;
+    display: flex;
+    display: -webkit-flex;
+    height: 130px;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    left: calc(50% - 300px);
+    position: absolute;
+    top: calc(50% - 65px);
+    width: 600px;
+  }
+  .unit{
+    background: linear-gradient(#aaa, #777);
+    border-radius: 15px;
+    box-shadow: 0 2px 2px #444;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 5em;
+    height: 100%;
+    line-height: 130px;
+    margin: 0 10px;
+    text-align: center;
+    text-shadow: 0 2px 2px #666;
+    width: 23%;
+  }

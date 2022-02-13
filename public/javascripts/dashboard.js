@@ -124,6 +124,7 @@ function loadFullGrid(json) {
     grid.destroy(true);
     grid = GridStack.addGrid(document.querySelector('.my-grid'), json.dashboard)
     initGridHandlers();
+    refreshDashboard();
 }
 
 function appendLoading(id) {
@@ -175,6 +176,8 @@ function getNewWidget() {
                 widget</button>
               <button class="dropdown-item" type="button" onclick="getNorrisContent('W`+ widgetID + `')">Chuck Norris
                 widget</button>
+              <button class="dropdown-item" type="button" onclick="getTimeZoneContent('W`+ widgetID + `')">Time zone
+                widget</button>
             </div>
           </div>
         </div>
@@ -192,6 +195,7 @@ function getFormulaOneDriversContent(id) {
     container.append(getFormulaWidgetContent(id, "driverStandings"));
     saveFullGrid();
 }
+
 
 function getFormulaOneConstructorsContent(id)
 {
@@ -211,6 +215,16 @@ function getWeatherContent(id) {
     title.append("Weather");
     container.empty();
     container.append(getWeatherWidgetContent(id));
+    saveFullGrid();
+}
+
+function getTimeZoneContent(id) {
+    let container = $("#" + id).find('.widget-content');
+    let title = $("#" + id).find('.title');
+    title.empty();
+    title.append("Time zone");
+    container.empty();
+    container.append(getTimeZoneWidgetContent(id));
     saveFullGrid();
 }
 

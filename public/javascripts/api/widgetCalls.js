@@ -60,6 +60,35 @@ function getWeatherData(id, city)
     });
 }
 
+function getTimeZoneData(id, zone)
+{
+    $.ajax({
+        type: "GET",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        contentType: 'application/json',
+        url: `http://worldtimeapi.org/api/timezone/`+ zone +``,
+        beforeSend: function () {
+            console.log("Loading...");
+            appendLoading(id);
+            //SPINNER
+        },
+        success: function (json) {
+            appendTimeZone(id, json);
+            setRefresher($("#" + id).find('.refresher'), `getTimeZoneData('`+ id +`', '`+ zone +`');`);
+            console.log(json);
+            saveFullGrid();
+        },
+        error: function (json) {
+            alert("error !");
+            getTimeZoneContent(id);
+            setRefresher($("#" + id).find('.refresher'), `getTimeZoneContent('`+ id +`');`);
+            console.log(json);
+        }
+    });
+}
+
 function getFootballLeagues(id, callback)
 {
     $.ajax({
